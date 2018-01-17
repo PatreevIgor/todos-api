@@ -9,6 +9,8 @@ require 'rspec/rails'
 
 ActiveRecord::Migration.maintain_test_schema!
 
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
@@ -30,6 +32,8 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.filter_rails_from_backtrace!
+
+  config.include RequestSpecHelper, type: :request
 end
 
 Shoulda::Matchers.configure do |config|
@@ -38,3 +42,5 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+
